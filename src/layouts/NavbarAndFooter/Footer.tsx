@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export const Footer = () =>{
     return (
         <div className="main-color">
@@ -6,14 +8,14 @@ export const Footer = () =>{
                 <p className="col-md-4 mb-0 text-white">&copy; Example Library App, Inc</p>
                 <ul className="nav navbar-dark col-md-6 justify-content-end">
                     <li className="nav-item">
-                        <a href="#" className="nav-link text-white px-4">
+                        <Link to="/home" className="nav-link text-white px-4">
                             Home
-                        </a>
+                        </Link>
                     </li>
                     <li className="nav-item">
-                        <a href="#" className="nav-link text-white px-4">
+                        <Link to="/search" className="nav-link text-white px-4">
                             Search Books
-                        </a>
+                        </Link>
                     </li>
                 </ul>
             </footer>
