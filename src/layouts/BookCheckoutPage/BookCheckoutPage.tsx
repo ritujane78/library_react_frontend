@@ -3,12 +3,60 @@ import BookModel from "../../models/BookModel";
 import { SpinnerLoading } from "../Utils/SpinnerLoading";
 import { StarsReview } from "../Utils/StarsReview";
 import { CheckoutAndReviewBox } from "./CheckoutAndReviewBox";
+import ReviewModel from "../../models/ReviewModel";
+import { LatestReviews } from "./LatestReviews";
 
 export const BookCheckoutPage = () => {
   const [book, setBook] = useState<BookModel>();
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState("");
   const bookId = window.location.pathname.split("/")[2];
+
+  // Review State
+  const [reviews, setReviews] = useState<ReviewModel[]>([]);
+  const [totalStars, setTotalStars] = useState(0);
+  const [isLoadingReviews, setIsLoadingReviews] = useState(true);
+
+  useEffect(() => {
+    const fetchReviewsForABook = async () => {
+      const reviewUrl = `http://localhost:8081/api/reviews/search/findByBookId?bookId=${bookId}`;
+  
+      const response = await fetch(reviewUrl);
+
+      if(!response.ok){
+        throw new Error('Something went wrong with getting reviews');
+      }
+      const responseJson = await response.json();
+
+      const responseData = responseJson._embedded.reviews;
+
+      const loadedReviews : ReviewModel[] = [];
+      let weightedReviews: number = 0;
+
+      for(const key in responseData){
+        loadedReviews.push({
+          id:responseData[key].id,
+          userEmail: responseData[key].userEmail,
+          date:responseData[key].date,
+          book_id: responseData[key].bookId,
+          rating: responseData[key].rating,
+          reviewDescription: responseData[key].reviewDescription
+        });
+        weightedReviews = totalStars + responseData[key].rating;
+      }
+      if(loadedReviews){
+        const round = (Math.round((weightedReviews/loadedReviews.length) * 2) / 2).toFixed(1);
+        setTotalStars(Number(round));
+      }
+      setReviews(loadedReviews);
+      setIsLoadingReviews(false);
+    }  
+    fetchReviewsForABook().catch((error: any) => {
+      setIsLoadingReviews(false);
+      setHttpError(error.message);
+    })
+
+  }, [])
 
   useEffect(() => {
     const fetchBook = async () => {
@@ -21,7 +69,6 @@ export const BookCheckoutPage = () => {
       }
       const responseJson = await response.json();
 
-      console.log(responseJson);
 
       const loadedBook: BookModel = {
         id: responseJson.id,
@@ -43,7 +90,7 @@ export const BookCheckoutPage = () => {
     });
   }, []);
 
-  if (isLoading) {
+  if (isLoading || isLoadingReviews) {
     return <SpinnerLoading />;
   }
   if (httpError) {
@@ -75,7 +122,7 @@ export const BookCheckoutPage = () => {
               <h2>{book?.title}</h2>
               <h5 className="text-primary">{book?.author}</h5>
               <p className="lead">{book?.description}</p>
-              <StarsReview rating={1} size={32} />
+              <StarsReview rating={totalStars} size={32} />
             </div>
           </div>
           <div className="col-md-4">
@@ -84,6 +131,7 @@ export const BookCheckoutPage = () => {
         </div>
       </div>
       <hr />
+      <LatestReviews reviews={reviews} bookId={book?.id} mobile= {false} />
       <div className="container d-lg-none mt-5">
         <div className="d-flex justify-content-center align-items-center">
           {book?.img ? (
@@ -102,11 +150,12 @@ export const BookCheckoutPage = () => {
             <h2>{book?.title}</h2>
             <h5 className="text-primary">{book?.author}</h5>
             <p className="lead">{book?.description}</p>
-            <StarsReview rating={4.5} size={32} />
+            <StarsReview rating={totalStars} size={32} />
           </div>
         </div>
         <CheckoutAndReviewBox book={book} mobile={true} />
         <hr />
+        <LatestReviews reviews={reviews} bookId={book?.id} mobile= {true} />
       </div>
     </div>
   );
