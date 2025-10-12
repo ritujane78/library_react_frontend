@@ -7,6 +7,7 @@ import { Footer } from "./layouts/NavbarAndFooter/Footer";
 import { Homepage } from "./layouts/Homepage/Homepage";
 import { SearchBooksPage } from "./layouts/SearchBooksPage/SearchBooksPage";
 import { Navigate, Route, Routes } from "react-router-dom";
+import { BookCheckoutPage } from "./layouts/BookCheckoutPage/BookCheckoutPage";
 
 export const App = () => {
   return (
@@ -17,6 +18,7 @@ export const App = () => {
           <Route path="/" element={<Navigate to="/home" replace />}></Route>
           <Route path="/home" element={<Homepage />}></Route>
           <Route path="/search" element={<SearchBooksPage />}></Route>
+          <Route path="/checkout/:bookid" element={<BookCheckoutPage />}></Route>
         </Routes>
       </div>
       <Footer />
