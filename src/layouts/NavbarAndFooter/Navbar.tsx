@@ -7,7 +7,7 @@ export const Navbar = () => {
   
     const [roles, setRoles] = useState<string[] | null>(null); 
     const [loading, setLoading] = useState(true); // Loading state to handle async data
-    const { isAuthenticated, loginWithRedirect, logout, getIdTokenClaims } = useAuth0();
+    const { isAuthenticated, loginWithRedirect, logout, getIdTokenClaims, getAccessTokenSilently } = useAuth0();
 
   //   useEffect(() => {
   //     const fetchRoles = async () => {
@@ -34,6 +34,7 @@ export const Navbar = () => {
   };
 
   console.log("isAuthenticated: ", isAuthenticated);
+  // console.log("token = ", getAccessTokenSilently());
   
   return (
     <nav className="navbar navbar-expand-lg navbar-dark main-color py-3">
