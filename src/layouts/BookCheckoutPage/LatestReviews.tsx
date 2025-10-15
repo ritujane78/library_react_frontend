@@ -20,7 +20,7 @@ export const LatestReviews: React.FC<{
             ))}
             <div className="m-3">
               <Link
-                to="#"
+                to={`/reviewList/${props.bookId}`}
                 type="button"
                 className="btn btn-md main-color text-white"
               >
