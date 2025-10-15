@@ -3,9 +3,6 @@ import { StarsReview } from "./StarsReview";
 
 export const Review : React.FC<{review: ReviewModel}> = (props) => {
     const date = new Date(props.review.date);
-
-    console.log(date);
-    
     const longMonth = date.toLocaleString("en-us", {month: 'long'});
     const dateDay = date.getDay();
     const dateYear = date.getFullYear();
