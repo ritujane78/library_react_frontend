@@ -34,7 +34,7 @@ export const Navbar = () => {
   };
 
   console.log("isAuthenticated: ", isAuthenticated);
-  // console.log("token = ", getAccessTokenSilently());
+  console.log("token = ", getAccessTokenSilently());
   
   return (
     <nav className="navbar navbar-expand-lg navbar-dark main-color py-3">
@@ -63,6 +63,13 @@ export const Navbar = () => {
                 Search Books
               </NavLink>
             </li>
+            {isAuthenticated &&
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/shelf">
+                Shelf
+              </NavLink>
+            </li>
+            }
           </ul>
           <ul className='navbar-nav ms-auto'>
             {!isAuthenticated ?

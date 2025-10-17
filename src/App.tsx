@@ -15,6 +15,9 @@ import { Auth0Provider, withAuthenticationRequired } from '@auth0/auth0-react';
 import { auth0Config } from './lib/auth0Config';
 import LoginPage from './Auth/LoginPage';
 import { ReviewListPage } from "./layouts/BookCheckoutPage/ReviewListPage/ReviewListPage";
+import { ShelfPage } from "./layouts/ShelfPage/ShelfPage";
+
+import RequireAuth from "./RequireAuth";
 
 
 const Auth0ProviderWithHistory = ({ children }: { children: React.ReactNode }) => {
@@ -53,6 +56,7 @@ export const App = () => {
           <Route path='/login' element={<LoginPage />} />
           <Route path="/reviewList/:bookid" element={<ReviewListPage />} />
 
+      <Route path="/shelf" element={<RequireAuth><ShelfPage /></RequireAuth>}      />
         </Routes>
       </div>
       <Footer />
