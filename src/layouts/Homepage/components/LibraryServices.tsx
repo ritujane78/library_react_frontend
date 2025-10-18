@@ -21,7 +21,7 @@ export const LibraryServices = () => {
                 Sign up
               </Link>
             ) : (
-              <Link to="#" className="btn main-color btn-lf text-white">
+              <Link to="/messages" className="btn main-color btn-lf text-white">
                 Library Services
               </Link>
             )}
