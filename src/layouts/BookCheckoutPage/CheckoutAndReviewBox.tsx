@@ -26,10 +26,9 @@ export const CheckoutAndReviewBox : React.FC<{book: BookModel | undefined
         function reviewRender() {
         if (props.isAuthenticated && !props.isReviewLeft) {
             return(
-            <p>
-                
+            <div>
                 <LeaveAReview submitReview = {props.submitReview} />
-            </p>
+            </div>
             )
         } else if (props.isAuthenticated && props.isReviewLeft) {
             return(
@@ -80,7 +79,7 @@ export const CheckoutAndReviewBox : React.FC<{book: BookModel | undefined
                 <p className="mt-3">
                     This number can change untiil placing order has been complete.
                 </p>
-                {reviewRender()};
+                {reviewRender()}
 
             </div>
         </div>
