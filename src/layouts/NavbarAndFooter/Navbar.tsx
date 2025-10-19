@@ -34,7 +34,6 @@ export const Navbar = () => {
   };
 
   console.log("isAuthenticated: ", isAuthenticated);
-  console.log("token = ", getAccessTokenSilently());
   
   return (
     <nav className="navbar navbar-expand-lg navbar-dark main-color py-3">
