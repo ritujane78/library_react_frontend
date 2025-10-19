@@ -9,7 +9,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import RequestReviewModel from "../../models/RequestReviewModel";
 
 export const BookCheckoutPage = () => {
-  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const { isAuthenticated, getAccessTokenSilently, user } = useAuth0();
 
   const [book, setBook] = useState<BookModel>();
   const [isLoading, setIsLoading] = useState(true);
@@ -111,7 +111,7 @@ export const BookCheckoutPage = () => {
       if (isAuthenticated) {
         // const url = `http://localhost:8081/api/reviews/secure/user/book/?bookId=${bookId}`;
         const accessToken = await getAccessTokenSilently();
-        const url = `http://localhost:8081/api/reviews/secure/user/book?bookId=${bookId}`;
+        const url = `http://localhost:8081/api/reviews/secure/user/book?bookId=${bookId}&userEmail=${user?.email}`;
 
         const requestOptions = {
           method: "GET",
@@ -139,7 +139,7 @@ export const BookCheckoutPage = () => {
     const fetchUserCurrentLoansCount = async () => {
       if (isAuthenticated) {
         const accessToken = await getAccessTokenSilently();
-        const url = `http://localhost:8081/api/books/secure/currentloans/count`;
+        const url = `http://localhost:8081/api/books/secure/currentloans/count?userEmail=${user?.email}`;
         const requestOptions = {
           method: "GET",
           headers: {
@@ -169,7 +169,7 @@ export const BookCheckoutPage = () => {
       if (isAuthenticated) {
         // const url = `http://localhost:8081/api/books/secure/ischeckedout/byuser/?bookId=${bookId}`;
         const accessToken = await getAccessTokenSilently();
-        const url = `http://localhost:8081/api/books/secure/ischeckedout/byuser?bookId=${bookId}`;
+        const url = `http://localhost:8081/api/books/secure/ischeckedout/byuser?bookId=${bookId}&userEmail=${user?.email}`;
 
         const requestOptions = {
           method: "GET",

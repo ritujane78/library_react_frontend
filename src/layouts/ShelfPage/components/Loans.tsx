@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { LoansModal } from "./LoansModal";
 
 export const Loans = () => {
-  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const { isAuthenticated, getAccessTokenSilently, user } = useAuth0();
   const [httpError, setHttpErrr] = useState(null);
   const [isLoadingUserLoans, setIsLoadingUserLoans] = useState(true);
   const [shelfCurrentLoans, setShelfCurrentLoans] = useState<
@@ -17,7 +17,7 @@ export const Loans = () => {
   useEffect(() => {
     const fetchUserCurrrentLoans = async () => {
       if (isAuthenticated) {
-        const url = "http://localhost:8081/api/books/secure/currentloans";
+        const url = `http://localhost:8081/api/books/secure/currentloans?userEmail=${user?.email}`;
         const accessToken = await getAccessTokenSilently();
         const requestOptions = {
           method: "GET",
