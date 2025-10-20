@@ -19,6 +19,7 @@ import { ShelfPage } from "./layouts/ShelfPage/ShelfPage";
 
 import RequireAuth from "./RequireAuth";
 import { MessagesPage } from "./layouts/MessagesPage/MessagesPage";
+import { ManageLibraryPage } from "./layouts/ManageLibraryPage/ManageLibraryPage";
 
 
 const Auth0ProviderWithHistory = ({ children }: { children: React.ReactNode }) => {
@@ -57,8 +58,9 @@ export const App = () => {
           <Route path='/login' element={<LoginPage />} />
           <Route path="/reviewList/:bookid" element={<ReviewListPage />} />
 
-      <Route path="/shelf" element={<RequireAuth><ShelfPage /></RequireAuth>}      />
-      <Route path="/messages" element={<RequireAuth><MessagesPage /></RequireAuth>} />
+          <Route path="/shelf" element={<RequireAuth><ShelfPage /></RequireAuth>}      />
+          <Route path="/messages" element={<RequireAuth><MessagesPage /></RequireAuth>} />
+          <Route path="/admin" element={<RequireAuth><ManageLibraryPage /></RequireAuth>} />
         </Routes>
       </div>
       <Footer />
