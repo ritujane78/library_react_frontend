@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { SpinnerLoading } from "../Utils/SpinnerLoading";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
 export const Navbar = () => {
@@ -9,20 +9,20 @@ export const Navbar = () => {
     const [loading, setLoading] = useState(true); // Loading state to handle async data
     const { isAuthenticated, loginWithRedirect, logout, getIdTokenClaims, getAccessTokenSilently } = useAuth0();
 
-  //   useEffect(() => {
-  //     const fetchRoles = async () => {
-  //         const claims = await getIdTokenClaims();
-  //         const fetchedRoles = claims?.['https://luv2code-react-library.com/roles'] || [];
-  //         setRoles(fetchedRoles);
-  //         setLoading(false); // Set loading to false once roles are loaded
-  //     };
+    useEffect(() => {
+      const fetchRoles = async () => {
+          const claims = await getIdTokenClaims();
+          const fetchedRoles = claims?.['https://jane-react-library.com/roles'] || [];
+          setRoles(fetchedRoles);
+          setLoading(false); // Set loading to false once roles are loaded
+      };
 
-  //     fetchRoles();
-  // }, [isAuthenticated, getIdTokenClaims]);
+      fetchRoles();
+  }, [isAuthenticated, getIdTokenClaims]);
 
-  // if (loading) {
-  //   return <SpinnerLoading />
-  // }
+  if (loading) {
+    return <SpinnerLoading />
+  }
     const handleLogout = () => {
     console.log("handleLogout");
     logout({ logoutParams: { returnTo: window.location.origin } })
@@ -68,6 +68,11 @@ export const Navbar = () => {
                 Shelf
               </NavLink>
             </li>
+            }
+            {isAuthenticated && roles?.includes('admin') &&
+              <li className='nav-item'>
+                <NavLink className='nav-link' to='/admin'>Admin</NavLink>
+              </li>
             }
           </ul>
           <ul className='navbar-nav ms-auto'>
