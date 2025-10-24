@@ -147,7 +147,7 @@ export const Loans = () => {
                               Manage Loan
                             </button>
                             <Link
-                              to={"search"}
+                              to="/search"
                               className="list-group-item list-group-item-action"
                             >
                               Search more books?

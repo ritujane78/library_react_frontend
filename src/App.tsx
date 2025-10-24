@@ -20,6 +20,7 @@ import { ShelfPage } from "./layouts/ShelfPage/ShelfPage";
 import RequireAuth from "./RequireAuth";
 import { MessagesPage } from "./layouts/MessagesPage/MessagesPage";
 import { ManageLibraryPage } from "./layouts/ManageLibraryPage/ManageLibraryPage";
+import { PaymentPage } from "./layouts/PaymentPage/PaymentPage";
 
 
 const Auth0ProviderWithHistory = ({ children }: { children: React.ReactNode }) => {
@@ -61,6 +62,7 @@ export const App = () => {
           <Route path="/shelf" element={<RequireAuth><ShelfPage /></RequireAuth>}      />
           <Route path="/messages" element={<RequireAuth><MessagesPage /></RequireAuth>} />
           <Route path="/admin" element={<RequireAuth><ManageLibraryPage /></RequireAuth>} />
+          <Route path="/fees" element={<RequireAuth><PaymentPage /></RequireAuth>} />
         </Routes>
       </div>
       <Footer />

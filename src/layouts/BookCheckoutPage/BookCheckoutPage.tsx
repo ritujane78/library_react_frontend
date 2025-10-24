@@ -33,6 +33,8 @@ export const BookCheckoutPage = () => {
   const [isCheckedOut, setIsCheckedOut] = useState(false);
   const [isLoadingBookCheckedOut, setIsLoadingBookCheckedOut] = useState(true);
 
+  const [displayError, setDisplayError] = useState(false);
+
   useEffect(() => {
     const fetchReviewsForABook = async () => {
       const reviewUrl = `${process.env.REACT_APP_API}/reviews/search/findByBookId?bookId=${bookId}`;
@@ -243,28 +245,43 @@ export const BookCheckoutPage = () => {
     setIsReviewLeft(true);
   }
 
-  async function checkoutBook() {
-    // const url = `${process.env.REACT_APP_API}/books/secure/checkout/?bookId=${book?.id}`;
-    const accessToken = await getAccessTokenSilently();
-    const url = `${process.env.REACT_APP_API}/books/secure/checkout?bookId=${book?.id}&userEmail=${user?.email}`;
-    const requestOptions = {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/json",
-      },
-    };
+async function checkoutBook() {
+  const accessToken = await getAccessTokenSilently();
+  const url = `${process.env.REACT_APP_API}/books/secure/checkout?bookId=${book?.id}&userEmail=${user?.email}`;
+  
+  const requestOptions = {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
+    },
+  };
+
+  try {
     const checkoutResponse = await fetch(url, requestOptions);
+    
     if (!checkoutResponse.ok) {
-      throw new Error("Something went wrong!");
-      return;
+      if (checkoutResponse.status === 400 || checkoutResponse.status === 500) {
+        setDisplayError(true); // ✅ show your alert
+        return; // ✅ prevent throwing → no global error page
+      }
+      throw new Error("Checkout failed");
     }
+
+    setDisplayError(false);
     setIsCheckedOut(true);
+
+  } catch (error: any) {
+    console.log(error);
   }
+}
 
   return (
     <div>
       <div className="container d-none d-lg-block">
+        {displayError && <div className="alert alert-danger mt-3" role="alert">
+          Please pay outstanding fees and/or return late book(s).
+        </div>}
         <div className="row m-5">
           <div className="col-sm-3 col-md-2">
             {book?.img ? (
@@ -303,6 +320,9 @@ export const BookCheckoutPage = () => {
         <LatestReviews reviews={reviews} bookId={book?.id} mobile={false} />
       </div>
       <div className="container d-lg-none mt-5">
+        {displayError && <div className="alert alert-danger mt-3" role="alert">
+          Please pay outstanding fees and/or return late book(s).
+        </div>}
         <div className="d-flex justify-content-center align-items-center">
           {book?.img ? (
             <img src={book.img} height="349" width="226" alt="Book" />

@@ -1,7 +1,7 @@
 class PaymentInfoRequest {
     amount: number;
     currency: string;
-    receiptEmail: string | undefined
+    receiptEmail: string | undefined;
 
     constructor(amount: number, currency: string, receiptEmail: string){
         this.amount = amount;
