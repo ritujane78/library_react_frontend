@@ -18,7 +18,7 @@ export const ChangeQuantityOfBooks = () => {
   useEffect(() => {
     setIsLoading(true);
     const fetchBooks = async () => {
-      const baseUrl = `http://localhost:8081/api/books?page=${
+      const baseUrl = `${process.env.REACT_APP_API}/books?page=${
         currentPage - 1
       }&size=${booksPerPage}`;
 

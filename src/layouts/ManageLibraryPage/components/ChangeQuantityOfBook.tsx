@@ -20,7 +20,7 @@ export const ChangeQuantityOfBook: React.FC<{ book: BookModel, deleteBook: any }
   }, []);
 
   async function increaseQuantity() {
-        const url = `http://localhost:8081/api/admin/secure/increase/book/quantity?bookId=${props.book?.id}`;
+        const url = `${process.env.REACT_APP_API}/admin/secure/increase/book/quantity?bookId=${props.book?.id}`;
         const accessToken = await getAccessTokenSilently();
         const requestOptions = {
             method: 'PUT',
@@ -39,7 +39,7 @@ export const ChangeQuantityOfBook: React.FC<{ book: BookModel, deleteBook: any }
     }
 
     async function decreaseQuantity() {
-        const url = `http://localhost:8081/api/admin/secure/decrease/book/quantity?bookId=${props.book?.id}`;
+        const url = `${process.env.REACT_APP_API}/admin/secure/decrease/book/quantity?bookId=${props.book?.id}`;
         const accessToken = await getAccessTokenSilently();
         const requestOptions = {
             method: 'PUT',
@@ -57,7 +57,7 @@ export const ChangeQuantityOfBook: React.FC<{ book: BookModel, deleteBook: any }
         setRemaining(remaining - 1);
     }
     const deleteBook = async () => {
-        const url = `http://localhost:8081/api/admin/secure/delete/book?bookId=${props.book?.id}`;
+        const url = `${process.env.REACT_APP_API}/admin/secure/delete/book?bookId=${props.book?.id}`;
         const accessToken = await getAccessTokenSilently();
         const requestOptions = {
             method: 'DELETE',

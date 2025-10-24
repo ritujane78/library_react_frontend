@@ -31,7 +31,7 @@ export const AdminMessages = () => {
         const fetchUserMessages = async () => {
             if (isAuthenticated) {
                 const accessToken = await getAccessTokenSilently();
-                const url = `http://localhost:8081/api/messages/search/findByClosed?closed=false&page=${currentPage - 1}&size=${messagesPerPage}`;
+                const url = `${process.env.REACT_APP_API}/messages/search/findByClosed?closed=false&page=${currentPage - 1}&size=${messagesPerPage}`;
                 const requestOptions = {
                     method: 'GET',
                     headers: {
@@ -73,7 +73,7 @@ export const AdminMessages = () => {
 
 
     async function submitResponseToQuestion(id: number, response: string) {
-        const url = `http://localhost:8081/api/messages/secure/admin/message?adminEmail=${user?.email}`;
+        const url = `${process.env.REACT_APP_API}/messages/secure/admin/message?adminEmail=${user?.email}`;
         const accessToken = await getAccessTokenSilently();
         if (isAuthenticated && id !== null && response !== '') {
             const messageAdminRequestModel: AdminMessageRequest = new AdminMessageRequest(id, response);
