@@ -77,7 +77,7 @@ export const CheckoutAndReviewBox : React.FC<{book: BookModel | undefined
                     {buttonRender()}
                 <hr />
                 <p className="mt-3">
-                    This number can change untiil placing order has been complete.
+                    This number can change until placing order has been complete.
                 </p>
                 {reviewRender()}
 

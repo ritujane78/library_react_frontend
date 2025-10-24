@@ -57,7 +57,7 @@ export const Loans = () => {
   }
 
   const returnBook= async (bookId: number) => {
-    const url = `${process.env.REACT_APP_API}/books/secure/return?bookId=${bookId}`;
+    const url = `${process.env.REACT_APP_API}/books/secure/return?bookId=${bookId}&userEmail=${user?.email}`;
         const accessToken = await getAccessTokenSilently();
         const requestOptions = {
             method: 'PUT',
@@ -74,7 +74,7 @@ export const Loans = () => {
         setIsCheckedOut(!isCheckedOut);
   }
   async function renewLoan(bookId: number) {
-        const url = `${process.env.REACT_APP_API}/books/secure/renew/loan?bookId=${bookId}`;
+        const url = `${process.env.REACT_APP_API}/books/secure/renew/loan?bookId=${bookId}&userEmail=${user?.email}`;
         const accessToken = await getAccessTokenSilently();
         const requestOptions = {
             method: 'PUT',

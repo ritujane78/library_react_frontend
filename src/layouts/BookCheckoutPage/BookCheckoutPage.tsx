@@ -246,8 +246,7 @@ export const BookCheckoutPage = () => {
   async function checkoutBook() {
     // const url = `${process.env.REACT_APP_API}/books/secure/checkout/?bookId=${book?.id}`;
     const accessToken = await getAccessTokenSilently();
-    const url = `${process.env.REACT_APP_API}/books/secure/checkout?bookId=${book?.id}`;
-
+    const url = `${process.env.REACT_APP_API}/books/secure/checkout?bookId=${book?.id}&userEmail=${user?.email}`;
     const requestOptions = {
       method: "PUT",
       headers: {
@@ -258,6 +257,7 @@ export const BookCheckoutPage = () => {
     const checkoutResponse = await fetch(url, requestOptions);
     if (!checkoutResponse.ok) {
       throw new Error("Something went wrong!");
+      return;
     }
     setIsCheckedOut(true);
   }
