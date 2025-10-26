@@ -226,7 +226,7 @@ export const BookCheckoutPage = () => {
       reviewDescription
     );
 
-    const url = `${process.env.REACT_APP_API}/reviews/secure`;
+    const url = `${process.env.REACT_APP_API}/reviews/secure?userEmail=${user?.email}`;
     const accessToken = await getAccessTokenSilently();
 
     const requestOptions = {

@@ -14,8 +14,6 @@ This is Frontend code for a **Jane Library Application** built using:
 
 | Technology | Version |
 |-----------|---------|
-| Java | 21 |
-| Spring Boot | 3.5.6 |
 | React | 19.2.2 |
 | TypeScript | 4.9.5 |
 | Bootstrap CSS | 3.0.2 |
