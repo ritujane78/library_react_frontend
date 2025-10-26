@@ -148,7 +148,7 @@ async function checkout() {
             {fees === 0 && 
                 <div className='mt-3'>
                     <h5>You have no fees!</h5>
-                    <Link type='button' className='btn main-color text-white' to='search'>
+                    <Link type='button' className='btn main-color text-white' to='/search'>
                         Explore top books
                     </Link>
                 </div>
